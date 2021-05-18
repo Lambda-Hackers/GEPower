@@ -1,0 +1,12 @@
+OBJS=$(Src_C:.C=.o) $(Src_c:.c=.o)
+
+COMMON_FLAGS = -g -I. -I../include -I../common $(MY_FLAGS)
+
+all:$(OBJS)
+	@echo "building $(Exe) ..."
+	@g++ $(COMMON_FLAGS) -o $(Exe) $(OBJS)
+	@echo "--->>>>>>>>> MAKE OK <<<<<<<<<---"
+	@del *.o
+
+clean:
+	@del *.o

@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "test.C": "cpp",
+        "luavm.C": "cpp",
+        "main.C": "cpp",
+        "wedge.C": "cpp",
+        "common.C": "cpp",
+        "luamgr.C": "cpp",
+        "suger.C": "cpp",
+        "thread.C": "cpp",
+        "iostream": "cpp"
+    }
+}
