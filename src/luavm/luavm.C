@@ -34,6 +34,9 @@ LuaVm::~LuaVm()
 */
 bool LuaVm::initLuaVm()
 {
+    luaL_dofile(m_L, m_scriptPath.c_str());
+
+
     CreateThread(NULL, 0, threadRun, this, 0, NULL);
     return true;
 }
