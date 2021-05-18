@@ -8,6 +8,6 @@ Src_C=main.C \
 	wedge.C \
 	suger.C
 
-MY_LDFLAGS =
+MY_FLAGS = ../../bin/lua.dll
 
 include ../common/makefile.incl

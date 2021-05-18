@@ -4,7 +4,7 @@ COMMON_FLAGS = -g -I. -I../include -I../common $(MY_FLAGS)
 
 all:$(OBJS)
 	@echo "building $(Exe) ..."
-	@g++ $(COMMON_FLAGS) -o $(Exe) $(OBJS)
+	@g++ $(COMMON_FLAGS) $(MY_FLAGS) -o $(Exe) $(OBJS)
 	@echo "--->>>>>>>>> MAKE OK <<<<<<<<<---"
 	@del *.o
 
