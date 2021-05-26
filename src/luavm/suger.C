@@ -8,8 +8,11 @@
 int l_create(lua_State* L)
 {
     if (lua_type(L, -1) != LUA_TTABLE) {
-        out("");
+        log << "create() argv should be table, but get " << lua_type(L, -1) << endl;
+        return 0;
     }
+
+    // 
     return 0;
 }
 

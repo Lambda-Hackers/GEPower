@@ -10,11 +10,11 @@ LuaMgr::LuaMgr()
     if (vm && vm->initLuaVm())
     {
         m_vm.push_back(vm);
-        out("create main vm thread OK");
+        //out("create main vm thread OK");
     }
     else
     {
-        out("create main thread failed, please check resource")
+        // out("create main thread failed, please check resource")
         return;
     }
     

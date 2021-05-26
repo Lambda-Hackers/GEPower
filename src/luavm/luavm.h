@@ -1,5 +1,5 @@
 #include <string>
-#include"wedge.C"
+#include"wedge.h"
 using namespace std;
 
 class LuaVm

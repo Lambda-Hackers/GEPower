@@ -1,4 +1,4 @@
-#ifndef COMMON_THREAD
-#define COMMON_THREAD
+#ifndef _COMMON_THREAD_H
+#define _COMMON_THREAD_H
 
 #endif

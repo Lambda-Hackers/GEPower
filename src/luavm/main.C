@@ -1,18 +1,25 @@
 #include <iostream>
-#include "wedge.h"
 #include "luamgr.h"
+#include "wedge.h"
 using namespace std;
 
 static LuaMgr* luaMgr;
 
+bool init()
+{
+    // initialization log
+    logOut::openStream("../log/run.log");
+    return true;
+}
+
 int main()
 {
-    cout << 111 << endl;
+    init();
+
     luaMgr = new LuaMgr();
     while(true)
     {
         Sleep(10*1000);
-        cout << 111 << endl;
     }
     return 0;
 }
