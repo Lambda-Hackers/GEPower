@@ -17,6 +17,19 @@ int l_create(lua_State* L)
 }
 
 /*--------------------------------------------------------------
+* interface to Lua, 
+*/
+int l_bind(lua_State *L)
+{
+    if (lua_type(L, -1) != LUA_TSTRING || lua_type(L, -2) != LUA_TFUNCTION) {
+        log << "bind() argv should be (string, function), but get (" << lua_type(L, -1) << ", " 
+            << lua_type(L, ) 
+    }
+
+}
+
+
+/*--------------------------------------------------------------
 * register the key words to Lua 
 */
 void U_Lua_loadCommonApi(lua_State *L)
