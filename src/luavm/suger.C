@@ -23,9 +23,10 @@ int l_bind(lua_State *L)
 {
     if (lua_type(L, -1) != LUA_TSTRING || lua_type(L, -2) != LUA_TFUNCTION) {
         log << "bind() argv should be (string, function), but get (" << lua_type(L, -1) << ", " 
-            << lua_type(L, ) 
+            << lua_type(L, -2) << ")." << endl;
+            return 0; 
     }
-
+    
 }
 
 
@@ -35,5 +36,6 @@ int l_bind(lua_State *L)
 void U_Lua_loadCommonApi(lua_State *L)
 {
     lua_register(L, "create", l_create);
+    lua_register(L, "bind", l_bind);
     return;
 }
