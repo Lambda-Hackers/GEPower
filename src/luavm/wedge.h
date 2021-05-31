@@ -7,7 +7,7 @@
 #include "../include/lua/lua.h"
 using namespace std;
 
-#define MAIN_LUA_PATH "../../script/main.Lua"
+#define MAIN_LUA_PATH "../script/main.Lua"
 
 #endif
 

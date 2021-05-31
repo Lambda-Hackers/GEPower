@@ -4,14 +4,30 @@
 /*--------------------------------------------------------------
 * thread Loop for Lua Vm
 */
-DWORD WINAPI threadRun(LPVOID vm)
+DWORD WINAPI threadRun(LPVOID argv)
 {
-    vm = (LuaVm *)vm;
-    int i = 10;
-    while (i--)
+    LuaVm* vm = (LuaVm*)argv;
+    // call default lua func script_run, must be a globe func
+    lua_getglobal(vm->L(), "script_run");
+    log << lua_type(vm->L(), -1) << endl;
+    switch (lua_pcall(vm->L(), 0, 0, 0))
     {
-        *logOut::getStream() << "xxxxxxxxxx" << endl;
+    case LUA_OK:
+        break;
+    case LUA_ERRRUN:
+        log << "run script_run func err, end lua vm thread" << endl;
+        return 0;
+    case LUA_ERRMEM:
+        log << "memory allocation err, end lua vm thread" << endl;
+        return 0;
+    case LUA_ERRERR:
+        log << "some err in script_run, end lua vm thread" << endl;
+        return 0;
+    default:
+        log << "Something unexpected when run script_run, end lua vm thread" << endl;
+        return 0;
     }
+    log << "exit" << endl;
     return 0;
 }
 
@@ -34,7 +50,11 @@ LuaVm::~LuaVm()
 */
 bool LuaVm::initLuaVm()
 {
-    luaL_dofile(m_L, m_scriptPath.c_str());
+    if (luaL_dofile(m_L, m_scriptPath.c_str()) != LUA_OK)
+    {
+        log << "err to exec lua scripte path: "<< m_scriptPath << endl;
+        return false;
+    }
 
     CreateThread(NULL, 0, threadRun, this, 0, NULL);
     return true;

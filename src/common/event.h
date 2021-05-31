@@ -8,15 +8,6 @@
 
 typedef void(*CALLBAK)(void*);
 
-enum REGIST_EVENT {
-    // model crash, send to the model which crash (A and B)
-    CRASH,
-    // model into the view
-    INVIEW,
-    // model move
-    MOVE
-};
-
 // use IOCP do event loop
 namespace WINEVENT
 {
