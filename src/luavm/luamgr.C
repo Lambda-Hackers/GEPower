@@ -1,35 +1,27 @@
-#include<iterator>
-#include<algorithm>
 #include "LuaMgr.h"
 
 using namespace std;
+
+/*--------------------------------------------------------------
+* init LuaMgr
+*/
 LuaMgr::LuaMgr()
 {
     // Load main Lua scrite
-    LuaVm* vm = new LuaVm(MAIN_LUA_PATH);
-    if (vm && vm->initLuaVm())
+    m_luaState = luaL_newstate();
+
+    // opens all standard Lua libraries into the given state
+    luaL_openlibs(m_luaState);
+
+    if (luaL_dofile(m_luaState, "../script/main.Lua") != LUA_OK)
     {
-        m_vm.push_back(vm);
-        //out("create main vm thread OK");
+        warn("err to exec lua scripte path: %s", MAIN_LUA_PATH);
+        exit(1);
     }
-    else
-    {
-        // out("create main thread failed, please check resource")
-        return;
-    }
-    
 }
 
 LuaMgr::~LuaMgr()
 {
 }
 
-/*--------------------------------------------------------------
-* management interface for Lua Manager, use to control all LuaVm
-*/
-void LuaMgr::monLuaMgr()
-{
-    for_each(m_vm.begin(), m_vm.end(), [](auto it){
-        
-    });
-}
+

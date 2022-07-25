@@ -1,17 +1,14 @@
 common:
-	@make -f makefile all
+	@g++ main.C luamgr.C ../common/logout.C -o ../../bin/luavm -I../include/libevent -L../../bin -levent -lwsock32 -llua
+	@del *.o
+	@cd ../common/ && del *.o
+#	@make -f makefile all
 
 Exe=../../bin/luavm
 
 Src_C=main.C \
-	luavm.C \
-	luamgr.C \
-	suger.C \
-	script.C \
-	wedge.C \
-	../include/lua/dump.C \
 	../common/logout.C
 
-MY_FLAGS = ../../bin/lua.dll
+MY_FLAGS =  
 
 include ../common/makefile.incl

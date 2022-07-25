@@ -1,4 +1,4 @@
-local function snake_crash()
+--[[local function snake_crash()
 
 end
 
@@ -14,3 +14,5 @@ function script_run()
     -- snake.bind("CRASH", snake_crash, {"ordinate", "mutual", "time"})
     snake.bind("CRASH", snake_crash)
 end
+]]--
+print("xxxxxxxxxxxxxxxxx\n");

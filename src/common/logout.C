@@ -1,63 +1,39 @@
 #include"logout.h"
-#include<list>
-#include<windows.h>
-#include<algorithm>
 
-struct logOutInfo
+#define LINEBREAK "\n"
+
+LogStream* logOut::openStream(const char* path)
 {
-    logOutInfo(){};
-    ~logOutInfo()
-    {
-        delete streamOut;
-    }
-    std::string path;
-    Stream* streamOut;
-};
-
-namespace logOut
-{
-    std::list<logOutInfo*> m_outList;
-    HANDLE m_logMutex = CreateMutex(NULL, false, NULL);
-};
-
-bool logOut::openStream(std::string path)
-{
-    WaitForSingleObjectEx(m_logMutex, INFINITE, false);
-    for_each(m_outList.begin(), m_outList.end(), [&path](logOutInfo* logInfo){
-        if (path == logInfo->path) {
-            CloseHandle(m_logMutex);
-            return;
-        }
-    });
-
-    logOutInfo* info = new logOutInfo();
-    info->path = path;
-    info->streamOut = new Stream(path);
-
-    m_outList.push_front(info);
-    CloseHandle(m_logMutex);
-    return true;
-
+    return new LogStream(path);
 }
 
-void logOut::closeStream()
+void logOut::closeStream(LogStream* logStream)
 {
-    WaitForSingleObjectEx(m_logMutex, INFINITE, false);
-    for_each(m_outList.begin(), m_outList.end(), [](logOutInfo* logInfo){
-        m_outList.pop_front();
-        delete logInfo;
-    });
-    CloseHandle(m_logMutex);
+    delete logStream;
 }
 
-Stream* logOut::getStream()
+void logOut::outf(LogStream* stream, LOG_OUT_CLASS outClass, const char* context)
 {
-    WaitForSingleObjectEx(m_logMutex, INFINITE, false);
-    if (m_outList.empty())
+    stream->outf(outClass, context);
+    stream->outf(outClass, LINEBREAK);
+}
+
+void logOut::outv(LogStream* stream, LOG_OUT_CLASS outClass, const char *format, ...)
+{
+    if (format == NULL || *format == 0)
+		return;
+
+    if (stream == NULL)
     {
-        CloseHandle(m_logMutex);
-        return NULL; // std::cout;
+        outToStderr("out stream have not been initial\n");
+        return;
     }
-    CloseHandle(m_logMutex);
-    return m_outList.front()->streamOut;
+
+	va_list ap;
+	va_start(ap, format);
+
+    stream->outf(outClass, format, ap);
+    stream->outf(outClass, LINEBREAK);
+
+	va_end(ap);
 }

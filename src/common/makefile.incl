@@ -7,6 +7,8 @@ all:$(OBJS)
 	@g++ $(COMMON_FLAGS) $(MY_FLAGS) -o $(Exe) $(OBJS)
 	@echo "--->>>>>>>>> MAKE OK <<<<<<<<<---"
 	@del *.o
+	@cd ../common/ && del *.o
 
 clean:
 	@del *.o
+	@cd ../common/ && del *.o
