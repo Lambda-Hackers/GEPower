@@ -7,5 +7,7 @@
 
 #define MAIN_LUA_PATH "../script/main.Lua"
 
+#define LUAVM_STACKNUMBER_MGR 1
+
 #endif
 
